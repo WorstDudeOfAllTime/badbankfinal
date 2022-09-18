@@ -1,0 +1,18 @@
+.footerContainer {
+  width: 100%;
+  background: black;
+  height: 300px;
+  flex-wrap: wrap;
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+}
+.linkBox {
+  width: 100%;
+}
+.socialImg {
+  height: 60px;
+  width: 60px;
+  margin: 0px 10px;
+  filter: invert(1);
+}

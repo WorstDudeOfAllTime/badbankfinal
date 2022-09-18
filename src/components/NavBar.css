@@ -1,0 +1,44 @@
+.navContainer {
+  width: 100%;
+  background: white;
+}
+.logoSide {
+  width: 30%;
+  justify-content: flex-start;
+}
+.logo {
+  text-decoration: none;
+  margin-left: 50px;
+  color: black;
+}
+.navSide {
+  width: 70%;
+}
+nav {
+  width: 100%;
+}
+.navList {
+  width: 100%;
+  justify-content: space-around !important;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+  width: 100%;
+}
+.link {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+button {
+  border: none;
+  background: black;
+  color: white;
+  font-weight: bold;
+  margin-right: 50px;
+  width: 200px;
+  height: 40px;
+}

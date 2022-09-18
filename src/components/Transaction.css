@@ -1,0 +1,20 @@
+.transactionContainer {
+  width: 100%;
+  height: auto;
+  min-height: 30px;
+  border: 1px solid black;
+  background: white;
+  text-align: left;
+}
+.date {
+  width: 20%;
+}
+.company {
+  width: 25%;
+}
+.amount {
+  width: 20%;
+}
+.balance {
+  width: 20%;
+}

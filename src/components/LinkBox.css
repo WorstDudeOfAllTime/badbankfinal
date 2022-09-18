@@ -1,0 +1,15 @@
+.linkContainer {
+  background-position: center;
+  background-size: cover;
+  background-repeat: none;
+  height: 100%;
+  width: 25%;
+}
+
+.theHead {
+  color: black;
+  font-size: 4vh;
+}
+h2 {
+  width: 100%;
+}
