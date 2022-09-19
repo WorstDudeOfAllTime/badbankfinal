@@ -1,0 +1,22 @@
+.transferFormContainer {
+  height: 60vh;
+  width: 50vw;
+  background: white;
+  color: black;
+  border-radius: 3px;
+}
+#buttonBox {
+  justify-content: flex-end !important;
+}
+#buttonBox button {
+  margin: 0;
+  background: white;
+  color: black;
+  font-size: 20px;
+  width: 40px;  
+  cursor: pointer;
+}
+.transferFormBox{
+  width: 100%;
+  height: 90%;
+}

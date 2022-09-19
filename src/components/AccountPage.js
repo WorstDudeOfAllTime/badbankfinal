@@ -1,16 +1,46 @@
-import AccountHeader from "./AccountHeader";
-import AccountDisplay from "./AccountDisplay";
-import React, { useState, useEffect } from "react";
-const AccountPage = ({ currentUser }) => {
-  const [savingsBalance, setSavingsBalance] = useState(0);
-  const [checkingBalance, setCheckingBalance] = useState(0);
+import './AccountPage.css';
+import AccountHeader from './AccountHeader';
+import AccountDisplay from './AccountDisplay';
+import React, { useState, useEffect } from 'react';
+import DepositForm from './DepositForm';
+const AccountPage = ({
+  currentUser,
+  savingsBalance,
+  checkingBalance,
+  setCheckingBalance,
+  setSavingsBalance,
+}) => {
+  const [overlay, setOverlay] = useState(false);
   return (
     <>
+      <div
+        className="overlayForm"
+        style={{ display: overlay ? 'block' : 'none' }}
+      >
+        <div style={{ height: '100%', width: '100%' }} className="flexCent">
+          <DepositForm
+          currentUser={currentUser}
+            setOverlay={setOverlay}
+            savingsBalance={savingsBalance}
+            checkingBalance={checkingBalance}
+          />
+        </div>
+      </div>
       {currentUser ? (
         <div
-          style={{ width: "100%", height: "100%" }}
-          className="fullAcounts flexCentCol"
+          style={{ width: '100%', height: '100%' }}
+          className="fullAccounts flexCentCol"
         >
+          <div className="pageHeader flexCent">
+            <h1>Accounts:</h1>
+            <button
+              onClick={() => {
+                setOverlay(true);
+              }}
+            >
+              Deposit/Withdraw
+            </button>
+          </div>
           <AccountHeader
             currentUser={currentUser}
             accountType="checking"

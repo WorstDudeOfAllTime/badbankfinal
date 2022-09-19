@@ -1,10 +1,10 @@
 import "./UserDisplay.css";
-const UserDisplay = ({ userName, email }) => {
+const UserDisplay = ({ userName, email, setOverlay, setReceiver }) => {
   return (
     <div className="flexCent userDisplay" style={{ width: "100%" }}>
       <h2>{userName}</h2>
       <h2>{email}</h2>
-      <button>Transfer Funds.</button>
+      <button onClick={()=> {setOverlay(true); setReceiver(userName)}}>Transfer Funds.</button>
     </div>
   );
 };
