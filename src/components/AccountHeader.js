@@ -19,7 +19,7 @@ const AccountHeader = ({ currentUser, accountType, balance }) => {
     <div className="accountHeader flexCentCol">
       <div className="flexCent accTop">
         <div className="mainDeets">
-          <h1></h1>
+          <h1>{accountType.charAt(0).toUpperCase() + accountType.slice(1)}</h1>
           <h3>Account Number: {accountInfo.accountNum} </h3>
           <h3>Debit Card: </h3>
         </div>

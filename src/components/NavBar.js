@@ -1,10 +1,11 @@
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 import WB from "./../img/worstBank.png";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 const NavBar = () => {
   const { currentUser } = useContext(UserContext);
+
   return (
     <div className="navContainer flexCent">
       <div className="logoSide flexCent">
@@ -17,7 +18,7 @@ const NavBar = () => {
           </Link>
         </h1>
       </div>
-      <div className="navSide flexCent">
+      <div style={{display: currentUser ? "flex" : "none"}} className="navSide flexCent">
         <nav>
           <ul className="flexCent navList">
             <li>
