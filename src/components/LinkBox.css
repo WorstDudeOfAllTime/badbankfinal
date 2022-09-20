@@ -8,8 +8,10 @@
 
 .theHead {
   color: black;
-  font-size: 4vh;
-}
-h2 {
   width: 100%;
+  background: white;
+}
+.theHead h2 {
+  width: 100%;
+  font-size: 3.5vw;
 }

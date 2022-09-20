@@ -1,34 +1,31 @@
-import './AccountPage.css';
-import AccountHeader from './AccountHeader';
-import AccountDisplay from './AccountDisplay';
-import React, { useState, useEffect } from 'react';
-import DepositForm from './DepositForm';
-const AccountPage = ({
-  currentUser,
-  savingsBalance,
-  checkingBalance,
-  setCheckingBalance,
-  setSavingsBalance,
-}) => {
+import "./AccountPage.css";
+import AccountHeader from "./AccountHeader";
+import AccountDisplay from "./AccountDisplay";
+import React, { useContext, useState } from "react";
+import DepositForm from "./DepositForm";
+import UserContext from "./UserContext";
+const AccountPage = () => {
   const [overlay, setOverlay] = useState(false);
+  const {
+    currentUser,
+    savingsBalance,
+    setSavingsBalance,
+    checkingBalance,
+    setCheckingBalance,
+  } = useContext(UserContext);
   return (
     <>
       <div
         className="overlayForm"
-        style={{ display: overlay ? 'block' : 'none' }}
+        style={{ display: overlay ? "block" : "none" }}
       >
-        <div style={{ height: '100%', width: '100%' }} className="flexCent">
-          <DepositForm
-          currentUser={currentUser}
-            setOverlay={setOverlay}
-            savingsBalance={savingsBalance}
-            checkingBalance={checkingBalance}
-          />
+        <div style={{ height: "100%", width: "100%" }} className="flexCent">
+          <DepositForm setOverlay={setOverlay} />
         </div>
       </div>
       {currentUser ? (
         <div
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: "100%", height: "100%" }}
           className="fullAccounts flexCentCol"
         >
           <div className="pageHeader flexCent">

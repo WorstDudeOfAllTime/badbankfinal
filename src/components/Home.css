@@ -155,3 +155,33 @@
   cursor: pointer;
   font-size: 1.2vw;
 }
+
+@media screen and (max-width: 700px) {
+  .sections {
+    height: 500px;
+  }
+  .headBox {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 700px) {
+  #leftBox,
+  #rightBox {
+    font-size: 13px;
+    height: 30%;
+  }
+  #leftBox button {
+    font-size: 14px;
+    width: 100%;
+    height: 40%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  #rightBox button {
+    font-size: 14px;
+    width: 100%;
+    height: 40%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}

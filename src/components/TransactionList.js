@@ -1,27 +1,22 @@
-import './TransactionList.css';
-import Transaction from './Transaction';
-import React, { useEffect, useState } from 'react';
+import "./TransactionList.css";
+import Transaction from "./Transaction";
+import React, { useEffect, useState } from "react";
 const TransactionList = ({ currentUser, setBalance, balance, accountType }) => {
   const [transList, setTransList] = useState([]);
-  let theBalance = 0;
-
+  const [altList, setAltList] = useState([]);
   useEffect(() => {
-    
     const dataPull = async () => {
+      console.log("fired");
       let response = await fetch(
         `http://localhost:5000/getBalance/${currentUser.email}/${accountType}`
       );
       let data = await response.json();
-      console.log(data);
       setTransList(data);
     };
     dataPull();
   }, []);
 
-  const listMapper = () => {
-
-  }
-
+  let theBalance = 0;
   return (
     <div className="fullTransactions">
       <div className="headers flexCent">
@@ -30,13 +25,15 @@ const TransactionList = ({ currentUser, setBalance, balance, accountType }) => {
         <div className="amount">Amount</div>
         <div className="balance">Balance</div>
       </div>
-      {transList.reverse().map((trans) => {
+      {transList.map((trans) => {
+        theBalance += trans.amount;
+        setBalance(theBalance);
         return (
           <Transaction
             date={trans.date}
             company={trans.company}
-            amount={trans.amount}
-            balance={theBalance}
+            amount={trans.amount.toFixed(2)}
+            balance={theBalance.toFixed(2)}
           />
         );
       })}

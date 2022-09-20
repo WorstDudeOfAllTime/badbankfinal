@@ -1,5 +1,6 @@
 import "./SignUp.css";
 import React, { useState } from "react";
+import OverlayForm from "./OverlayForm";
 const SignUp = ({ signUpDisplay, setSignUpDisplay }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,65 +47,41 @@ const SignUp = ({ signUpDisplay, setSignUpDisplay }) => {
   };
 
   return (
-    <div className="signupContainer flexCentCol">
-      <div
-        style={{
-          height: "10%",
-          width: "100%",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <button
-          onClick={() => setSignUpDisplay(!signUpDisplay)}
-          style={{
-            background: "none",
-            cursor: "pointer",
-            color: "black",
-            fontSize: "25px",
-            width: "40px",
-            textAlign: "center",
-            margin: "0",
+    <OverlayForm
+      closeBoxFunction={setSignUpDisplay}
+      formHeader="Create an Account."
+    >
+      <form onSubmit={(e) => handleSubmit(e)} className="flexCentCol">
+        <input
+          value={name}
+          type="text"
+          placeholder="Enter your Name"
+          onChange={(e) => {
+            setName(e.target.value);
           }}
-        >
-          X
-        </button>
-      </div>
-      <div className="flexCentCol" style={{ height: "90%", width: "100%" }}>
-        <h3 style={{ color: "black" }}>Create an Account.</h3>
-        <form onSubmit={(e) => handleSubmit(e)} className="flexCentCol">
-          <input
-            value={name}
-            type="text"
-            placeholder="Enter your Name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            required
-          ></input>
-          <input
-            value={email}
-            type="text"
-            placeholder="Enter your Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            required
-          ></input>
-          <input
-            value={password}
-            type="password"
-            placeholder="Enter your Password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            required
-          ></input>
-          <button id="signup">Sign Up.</button>
-        </form>
-      </div>
-      <div>{successMessage}</div>
-    </div>
+          required
+        ></input>
+        <input
+          value={email}
+          type="text"
+          placeholder="Enter your Email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          required
+        ></input>
+        <input
+          value={password}
+          type="password"
+          placeholder="Enter your Password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          required
+        ></input>
+        <button id="signup">Sign Up.</button>
+      </form>
+    </OverlayForm>
   );
 };
 

@@ -5,30 +5,31 @@ import AccountPage from "./components/AccountPage";
 import Layout from "./components/Layout";
 import UserList from "./components/UserList";
 import React, { useState } from "react";
+import UserContext from "./components/UserContext";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [savingsBalance, setSavingsBalance] = useState(0)
-  const [checkingBalance, setCheckingBalance] = useState(0)
+  const [savingsBalance, setSavingsBalance] = useState(0);
+  const [checkingBalance, setCheckingBalance] = useState(0);
   return (
     <div className="App">
       <Layout>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home currentUser={currentUser} setCurrentUser={setCurrentUser} />
-            }
-          ></Route>
-          <Route
-            path="/accounts"
-            element={<AccountPage currentUser={currentUser} setCheckingBalance={setCheckingBalance} setSavingsBalance={setSavingsBalance} savingsBalance={savingsBalance} checkingBalance={checkingBalance}/>}
-          ></Route>
-          <Route
-            path="/allusers"
-            element={<UserList currentUser={currentUser} />}
-          ></Route>
-          <Route path="/about"></Route>
-        </Routes>
+        <UserContext.Provider
+          value={{
+            currentUser,
+            setCurrentUser,
+            checkingBalance,
+            setCheckingBalance,
+            savingsBalance,
+            setSavingsBalance,
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/accounts" element={<AccountPage />}></Route>
+            <Route path="/allusers" element={<UserList />}></Route>
+            <Route path="/about"></Route>
+          </Routes>
+        </UserContext.Provider>
       </Layout>
     </div>
   );

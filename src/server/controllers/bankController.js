@@ -74,7 +74,7 @@ exports.depositFunds = (req, res) => {
     transactionType: "deposit",
     date: new Date(),
   };
-  db_connect.collection("transactions").insert(deposit, (id, result) => {
+  db_connect.collection("transactions").insertOne(deposit, (id, result) => {
     res.end();
   });
 };

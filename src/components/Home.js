@@ -10,9 +10,11 @@ import abhay from "./../img/abhay.jpg";
 import ian from "./../img/ian.jpg";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import UserContext from "./UserContext";
 
-const Home = ({ currentUser, setCurrentUser }) => {
+const Home = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const [loginDisplay, setLoginDisplay] = useState(false);
   const [signUpDisplay, setSignUpDisplay] = useState(false);
   return (
@@ -27,16 +29,13 @@ const Home = ({ currentUser, setCurrentUser }) => {
             display: "flex",
             justifyContent: "flex-end",
           }}
-        >
-          <button
-            onClick={() => setLoginDisplay(!loginDisplay)}
-            style={{ background: "none" }}
-          >
-            X
-          </button>
-        </div>
+        ></div>
         <div className="flexCent" style={{ height: "100%", width: "100%" }}>
-          <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
+          <Login
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            setLoginDisplay={setLoginDisplay}
+          />
         </div>
       </div>
       <div
@@ -55,7 +54,7 @@ const Home = ({ currentUser, setCurrentUser }) => {
           <h1>WORST</h1>
           <div className="halfSplit flexCentCol">
             {currentUser ? (
-              <h1>Hello Jimmy</h1>
+              <h1>Welcome back,</h1>
             ) : (
               <>
                 <div id="left"></div>
@@ -77,19 +76,27 @@ const Home = ({ currentUser, setCurrentUser }) => {
         <div className="half textBox flexCentCol">
           <h1>BANK</h1>
           <div className="halfSplit flexCentCol" style={{ color: "white" }}>
-            <div id="right"></div>
-            <div id="rightBox" className="welcomeBox flexCentCol">
-              <h2>Ready to lose it all?</h2>
-              <h3>Of course you are.</h3>
-              <button
-                id="open"
-                onClick={() => {
-                  setSignUpDisplay(true);
-                }}
-              >
-                Open an Account.
-              </button>
-            </div>
+            {currentUser ? (
+              <h1 style={{ color: "black" }}>
+                {currentUser.name.substring(0, currentUser.name.indexOf(" "))}
+              </h1>
+            ) : (
+              <>
+                <div id="right"></div>
+                <div id="rightBox" className="welcomeBox flexCentCol">
+                  <h2>Ready to lose it all?</h2>
+                  <h3>Of course you are.</h3>
+                  <button
+                    id="open"
+                    onClick={() => {
+                      setSignUpDisplay(true);
+                    }}
+                  >
+                    Open an Account.
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

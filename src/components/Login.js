@@ -1,6 +1,7 @@
 import "./Login.css";
 import React, { useState } from "react";
-const Login = ({ setCurrentUser }) => {
+import OverlayForm from "./OverlayForm";
+const Login = ({ setCurrentUser, setLoginDisplay }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -15,12 +16,19 @@ const Login = ({ setCurrentUser }) => {
     setEmail("");
     setPassword("");
     setCurrentUser(user);
-    setSuccessMessage(`Welcome, ${user.name}`);
+    setSuccessMessage(
+      `Welcome, ${user.name}. Window will Autoclose in 5 seconds...`
+    );
+    setTimeout(() => {
+      setLoginDisplay(false);
+    }, 4000);
   };
 
   return (
-    <div className="loginContainer flexCentCol">
-      <h3 style={{ color: "white" }}>Login to your Account.</h3>
+    <OverlayForm
+      closeBoxFunction={setLoginDisplay}
+      formHeader="Login to your Account."
+    >
       <form
         className="flexCentCol"
         onSubmit={(e) => {
@@ -45,8 +53,8 @@ const Login = ({ setCurrentUser }) => {
         ></input>
         <button id="login">Login.</button>
       </form>
-      <div style={{ color: "white" }}>{successMessage}</div>
-    </div>
+      <div>{successMessage}</div>
+    </OverlayForm>
   );
 };
 
