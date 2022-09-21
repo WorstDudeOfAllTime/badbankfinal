@@ -1,22 +1,15 @@
 import "./TransactionList.css";
 import Transaction from "./Transaction";
-import React, { useEffect, useState } from "react";
-const TransactionList = ({ currentUser, setBalance, balance, accountType }) => {
-  const [transList, setTransList] = useState([]);
-  const [altList, setAltList] = useState([]);
-  useEffect(() => {
-    const dataPull = async () => {
-      console.log("fired");
-      let response = await fetch(
-        `http://localhost:5000/getBalance/${currentUser.email}/${accountType}`
-      );
-      let data = await response.json();
-      setTransList(data);
-    };
-    dataPull();
-  }, []);
-
+import React, { useEffect, useState, useContext } from "react";
+import UserContext from "./UserContext";
+const TransactionList = ({ currentUser, setBalance, transList, balance }) => {
   let theBalance = 0;
+  let transArray = [];
+  transList.forEach((item) => {
+    transArray.push(item.amount + theBalance);
+    theBalance += item.amount;
+  });
+  transArray = transArray.reverse();
   return (
     <div className="fullTransactions">
       <div className="headers flexCent">
@@ -25,15 +18,13 @@ const TransactionList = ({ currentUser, setBalance, balance, accountType }) => {
         <div className="amount">Amount</div>
         <div className="balance">Balance</div>
       </div>
-      {transList.map((trans) => {
-        theBalance += trans.amount;
-        setBalance(theBalance);
+      {transList.reverse().map((trans, index) => {
         return (
           <Transaction
             date={trans.date}
             company={trans.company}
             amount={trans.amount.toFixed(2)}
-            balance={theBalance.toFixed(2)}
+            balance={transArray[index].toFixed(2)}
           />
         );
       })}

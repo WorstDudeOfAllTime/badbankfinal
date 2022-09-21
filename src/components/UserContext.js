@@ -6,5 +6,11 @@ const UserContext = createContext({
   setSavingsBalance: () => {},
   checkingBalance: 0,
   setCheckingBalance: () => {},
+  checkingTransactions: null,
+  setCheckingTransactions: () => {},
+  savingsTransactions: null,
+  setSavingsTransactions: () => {},
+  freshTransaction: null,
+  setFreshTransaction: () => {},
 });
 export default UserContext;

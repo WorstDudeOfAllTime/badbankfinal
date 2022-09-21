@@ -1,7 +1,13 @@
 import TransactionList from "./TransactionList";
 import React, { useState } from "react";
 import "./AccountDisplay.css";
-const AccountDisplay = ({ currentUser, accountType, balance, setBalance }) => {
+const AccountDisplay = ({
+  currentUser,
+  accountType,
+  balance,
+  setBalance,
+  transList,
+}) => {
   return (
     <div className="accountContainer flexCentCol">
       <TransactionList
@@ -9,6 +15,7 @@ const AccountDisplay = ({ currentUser, accountType, balance, setBalance }) => {
         setBalance={setBalance}
         balance={balance}
         accountType={accountType}
+        transList={transList}
       />
     </div>
   );

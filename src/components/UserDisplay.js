@@ -4,7 +4,14 @@ const UserDisplay = ({ userName, email, setOverlay, setReceiver }) => {
     <div className="flexCent userDisplay" style={{ width: "100%" }}>
       <h2>{userName}</h2>
       <h2>{email}</h2>
-      <button onClick={()=> {setOverlay(true); setReceiver(userName)}}>Transfer Funds.</button>
+      <button
+        onClick={() => {
+          setOverlay(true);
+          setReceiver(email);
+        }}
+      >
+        Transfer Funds.
+      </button>
     </div>
   );
 };

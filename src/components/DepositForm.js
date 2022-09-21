@@ -9,6 +9,7 @@ const DepositForm = ({ setOverlay }) => {
     checkingBalance,
     setSavingsBalance,
     setCheckingBalance,
+    setFreshTransaction,
   } = useContext(UserContext);
   const [accountType, setAccountType] = useState("Checking");
   const [transactionType, setTransactionType] = useState("Deposit");
@@ -19,10 +20,15 @@ const DepositForm = ({ setOverlay }) => {
     e.preventDefault();
 
     if (
-      (transactionType === "Withdraw" && parseFloat(amount) > savingsBalance) ||
-      (transactionType === "Deposit" && parseFloat(amount) > checkingBalance)
+      (transactionType === "Withdraw" &&
+        accountType === "Savings" &&
+        parseFloat(amount) > savingsBalance) ||
+      (transactionType === "Withdraw" &&
+        accountType === "Checking" &&
+        parseFloat(amount) > checkingBalance)
     ) {
       setSuccessMessage("Insufficient funds for withdraw");
+      return;
     }
 
     fetch(`http://localhost:5000/${transactionType.toLowerCase()}Funds`, {
@@ -43,6 +49,7 @@ const DepositForm = ({ setOverlay }) => {
         setSuccessMessage(data.message);
       })
       .catch((err) => console.log(err));
+    setFreshTransaction(true);
   };
 
   return (

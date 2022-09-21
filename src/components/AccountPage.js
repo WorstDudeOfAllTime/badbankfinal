@@ -5,14 +5,16 @@ import React, { useContext, useState } from "react";
 import DepositForm from "./DepositForm";
 import UserContext from "./UserContext";
 const AccountPage = () => {
-  const [overlay, setOverlay] = useState(false);
   const {
     currentUser,
     savingsBalance,
     setSavingsBalance,
     checkingBalance,
     setCheckingBalance,
+    checkingTransactions,
+    savingsTransactions,
   } = useContext(UserContext);
+  const [overlay, setOverlay] = useState(false);
   return (
     <>
       <div
@@ -48,6 +50,7 @@ const AccountPage = () => {
             accountType="checking"
             balance={checkingBalance}
             setBalance={setCheckingBalance}
+            transList={checkingTransactions}
           />
           <AccountHeader
             currentUser={currentUser}
@@ -59,6 +62,7 @@ const AccountPage = () => {
             accountType="savings"
             balance={savingsBalance}
             setBalance={setSavingsBalance}
+            transList={savingsTransactions}
           />
         </div>
       ) : (

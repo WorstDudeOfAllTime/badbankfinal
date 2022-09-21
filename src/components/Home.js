@@ -10,13 +10,54 @@ import abhay from "./../img/abhay.jpg";
 import ian from "./../img/ian.jpg";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import UserContext from "./UserContext";
 
 const Home = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    setCheckingTransactions,
+    setSavingsTransactions,
+    checkingTransactions,
+    savingsTransactions,
+    setCheckingBalance,
+    setSavingsBalance,
+    checkingBalance,
+    savingsBalance,
+    setFreshTransaction,
+    freshTransaction,
+  } = useContext(UserContext);
   const [loginDisplay, setLoginDisplay] = useState(false);
   const [signUpDisplay, setSignUpDisplay] = useState(false);
+
+  useEffect(() => {
+    const dataPull = async () => {
+      let savingsRes = await fetch(
+        `http://localhost:5000/getBalance/${currentUser.email}/savings`
+      );
+      let savingsData = await savingsRes.json();
+      let checkingRes = await fetch(
+        `http://localhost:5000/getBalance/${currentUser.email}/checking`
+      );
+      let checkingData = await checkingRes.json();
+      setCheckingTransactions(checkingData);
+      checkingData.forEach((item) => {
+        setCheckingBalance((prevBalance) => {
+          return prevBalance + item.amount;
+        });
+      });
+      setSavingsTransactions(savingsData);
+      savingsData.forEach((item) => {
+        setSavingsBalance((prevBalance) => {
+          return prevBalance + item.amount;
+        });
+      });
+      setFreshTransaction(false);
+    };
+    dataPull();
+  }, [currentUser, freshTransaction]);
+
   return (
     <div className="homeContainer flexCentCol">
       <div

@@ -30,7 +30,7 @@ const AccountHeader = ({ currentUser, accountType, balance }) => {
             <h4>Annual Percentage Yield:</h4>
           </div>
           <div className="ancData flexCent">
-            <h4>${balance}</h4>
+            <h4>${balance.toFixed(2)}</h4>
             <h4>$0.67</h4>
             <h4>0.10%</h4>
           </div>
