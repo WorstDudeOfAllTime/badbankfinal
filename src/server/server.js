@@ -10,8 +10,5 @@ app.use(require("./routes/userRoutes"));
 const dbo = require("./db/conn");
 
 app.listen(port, () => {
-  dbo.connectToServer((err) => {
-    if (err) console.error(err);
-  });
   console.log("We have connected");
 });

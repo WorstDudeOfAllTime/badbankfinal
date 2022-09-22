@@ -1,28 +1,30 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const accountSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: [true],
+    },
+    date: {
+      type: Date,
+      required: [true],
+    },
+    accountNum: {
+      type: Number,
+      required: [true],
+    },
+    routingNum: {
+      type: Number,
+      required: [true],
+    },
+  },
+  { versionKey: false }
+);
 
-const accountSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true
-  },
-  type :{
-    type: String,
-    required: [true]
-  },
-  company :{
-    type: String,
-    required: [true]
-  }, 
-  amount:{
-    type: Float,
-    required: [true]
-  },
-  transactionType :{
-    type: String,
-    required: [true]
-  }
-})
-
-const Account = mongoose.model('Account', accountSchema);
+const Account = mongoose.model("accounts", accountSchema);
 
 module.exports = Account;

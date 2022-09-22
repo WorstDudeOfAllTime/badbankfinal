@@ -1,45 +1,35 @@
-const dbo = require("./../db/conn");
 const { faker } = require("@faker-js/faker");
+const User = require("./../models/userModel");
+const Transaction = require("./../models/transactionModel");
+const Account = require("./../models/accountModel");
 
 exports.getAccount = async (req, res) => {
-  let db_connect = dbo.getDb();
   let person = { email: req.params.user, type: req.params.type };
 
-  db_connect.collection("accounts").findOne(person, (err, result) => {
+  Account.findOne(person, (err, result) => {
     res.send(result);
     res.end();
   });
 };
 
 exports.getBalance = async (req, res) => {
-  console.log(req.params);
   const accountType = req.params.type.toLowerCase();
   const email = req.params.email.toLowerCase();
-  if (accountType === "savings" || accountType === "checking") {
-    let db_connect = dbo.getDb();
-    const accountArray = [];
-    const collection = db_connect.collection("transactions");
-    const transactionList = [
-      {
-        $match: {
-          email: `${email}`,
-          type: `${accountType}`,
-        },
+  let balance = 0;
+  Transaction.aggregate([
+    {
+      $match: {
+        email: `${email}`,
+        type: `${accountType}`,
       },
-    ];
-    const aggCursor = collection.aggregate(transactionList);
-    for await (const doc of aggCursor) {
-      accountArray.push(doc);
-    }
-
-    res.send(accountArray);
-  } else {
-    res.end("That is not a proper account");
-  }
+    },
+  ]).exec((err, response) => {
+    if (err) res.send("This is not a proper account");
+    res.send(response);
+  });
 };
 
 exports.transferFunds = (req, res) => {
-  let db_connect = dbo.getDb();
   let transferSend = {
     email: req.body.send,
     type: req.body.sendType,
@@ -56,16 +46,13 @@ exports.transferFunds = (req, res) => {
     transactionType: "transfer",
     date: new Date(),
   };
-  db_connect
-    .collection("transactions")
-    .insertMany([transferSend, transferReceive], (err, result) => {
-      if (err) throw err;
-    });
+  Transaction.insertMany([transferSend, transferReceive], (err, result) => {
+    if (err) throw err;
+  });
   res.end();
 };
 
 exports.depositFunds = (req, res) => {
-  let db_connect = dbo.getDb();
   let deposit = {
     email: req.body.email,
     type: req.body.type,
@@ -74,12 +61,11 @@ exports.depositFunds = (req, res) => {
     transactionType: "deposit",
     date: new Date(),
   };
-  db_connect.collection("transactions").insertOne(deposit, (id, result) => {
-    res.end();
+  Transaction.create(deposit, (err, result) => {
+    res.send({ message: "Deposit Successful" });
   });
 };
 exports.withdrawFunds = (req, res) => {
-  let db_connect = dbo.getDb();
   let withdraw = {
     email: req.body.email,
     type: req.body.type,
@@ -88,15 +74,23 @@ exports.withdrawFunds = (req, res) => {
     transactionType: "withdraw",
     date: new Date(),
   };
-  db_connect.collection("transactions").insert(withdraw, (id, result) => {
+  Transaction.create(withdraw, (id, result) => {
     res.end();
   });
 };
 
 exports.deleteAll = (req, res) => {
-  let db_connect = dbo.getDb();
-  db_connect.collection("transactions").deleteMany({});
-  db_connect.collection("users").deleteMany({});
-  db_connect.collection("accounts").deleteMany({});
-  res.status(200).end();
+  User.deleteMany({}, (err, response) => {
+    if (err) console.log(err);
+    console.log(response);
+  });
+  Transaction.deleteMany({}, (err, response) => {
+    if (err) console.log(err);
+    console.log(response);
+  });
+  Account.deleteMany({}, (err, response) => {
+    if (err) console.log(err);
+    console.log(response);
+  });
+  res.end();
 };

@@ -1,5 +1,5 @@
 import TransactionList from "./TransactionList";
-import React, { useState } from "react";
+import React from "react";
 import "./AccountDisplay.css";
 const AccountDisplay = ({
   currentUser,
